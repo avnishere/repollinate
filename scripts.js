@@ -89,18 +89,25 @@ $(document).ready(function() {
             map.addLayer(markersCluster);
         });
 
-    function openAndZoomToMarker(selectedMarker) {
-        var latLng = selectedMarker.getLatLng();
-        var newLatLng = new L.LatLng(latLng.lat + 0.003, latLng.lng);
+        function openAndZoomToMarker(selectedMarker) {
+            // Ensure all popups are closed before starting to fly
+            map.closePopup();
         
-        // Fly to the new location
-        map.flyTo(newLatLng, 16, { animate: true });
-    
-        // Use once to ensure the event handler is removed after execution
-        map.once('moveend', function() {
-            selectedMarker.openPopup();
-        });
-    }
+            var latLng = selectedMarker.getLatLng();
+            // Adjust newLatLng for better popup visibility, if necessary
+            var newLatLng = new L.LatLng(latLng.lat + 0.003, latLng.lng);
+        
+            // Start the flyTo animation
+            map.flyTo(newLatLng, 16, { animate: true });
+        
+            // Once move has ended, open the popup
+            map.once('moveend', function() {
+                // Introduce a slight delay to ensure the map has completely settled
+                setTimeout(function() {
+                    selectedMarker.openPopup();
+                }, 100); // Adjust delay as needed, 100ms is usually sufficient
+            });
+        }
 
     $('#searchableDropdown').on('select2:select', function(e) {
         var selectedId = e.params.data.id;
@@ -115,24 +122,53 @@ $(document).ready(function() {
     });
 
     map.on('popupopen', function(e) {
-        setTimeout(function() {
-            if (document.querySelector('.tns-slider')) return; // Avoid reinitializing sliders
-            
-            var sliderContainers = document.querySelectorAll('.my-slider');
-            sliderContainers.forEach(sliderContainer => {
-                tns({
-                    container: sliderContainer,
-                    items: 1,
-                    slideBy: 'page',
-                    autoplay: true,
-                    autoplayButtonOutput: false,
-                    controls: false,
-                    nav: false,
-                    loop: true,
-                    axis: "vertical",
-                    speed: 2000,
-                });
+        var observer;
+        var attemptSliderInitialization = function() {
+            // Ensure the slider is not already initialized
+            if (!document.querySelector('.tns-slider')) {
+                var sliderContainer = document.querySelector('.my-slider');
+                if (sliderContainer && sliderContainer.querySelectorAll('img').length) {
+                    // Initialize the slider here
+                    tns({
+                        container: sliderContainer,
+                        items: 1,
+                        slideBy: 'page',
+                        autoplay: true,
+                        autoplayButtonOutput: false,
+                        controls: false,
+                        nav: false,
+                        loop: true,
+                        axis: "vertical",
+                        speed: 2000,
+                    });
+    
+                    // Disconnect the observer once the slider is initialized to prevent further observation
+                    if (observer) {
+                        observer.disconnect();
+                    }
+                }
+            }
+        };
+    
+        // Define a MutationObserver to watch for changes in the popup content container
+        observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.addedNodes.length) {
+                    attemptSliderInitialization();
+                }
             });
-        }, 100); // Short delay to ensure the content is fully loaded
-    });
-});
+        });
+    
+        // Start observing the popup content container for changes
+        var popupContentContainer = e.popup._contentNode;
+        observer.observe(popupContentContainer, {
+            childList: true, // Observe direct children addition/removal
+            subtree: true, // Observe all descendants
+            attributes: false,
+            characterData: false,
+        });
+    
+        // Attempt to initialize the slider immediately in case the content is already there
+        attemptSliderInitialization();
+    });    
+});    
