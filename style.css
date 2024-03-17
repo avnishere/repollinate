@@ -113,6 +113,15 @@ header .home-link {
     overflow-y: auto; /* Enables scroll for long lists */
 }
 
+.my-marker-label {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 2px 6px;
+    color: #333;
+    font-size: 12px;
+}
+
 /* Adjust the .leaflet-popup-content wrapper if needed */
 .leaflet-popup-content {
     width: auto !important; /* Override Leaflet's default width */

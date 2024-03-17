@@ -43,11 +43,25 @@ $(document).ready(function() {
 
             data.forEach(item => {
                 var popupContent = createPopupContent(item);
-                var marker = L.marker([item.lat, item.lng], {icon: customIcon}).bindPopup(popupContent, {maxWidth: 500});
-                marker.id = item.value;
+            
+                // Create a marker with a custom icon
+                var marker = L.marker([item.lat, item.lng], {
+                    icon: customIcon,
+                    // Tooltip configuration: always visible with the name of the project
+                    title: item.text // This sets the hover tooltip, optional if you want just the always-visible label
+                }).bindPopup(popupContent);
+            
+                // Bind a tooltip to the marker and make it always visible
+                marker.bindTooltip(item.text, {
+                    permanent: true, // This makes the tooltip always visible
+                    direction: 'bottom', // You can specify the direction (top, bottom, left, right)
+                    className: 'my-marker-label', // Use this class to style your tooltip if needed
+                    offset: [-3, -58] // You can add an offset to the tooltip position
+                });        
+                marker.id = item.value; // Assign the ID to the marker
                 markersCluster.addLayer(marker);
             });
-
+            
             map.addLayer(markersCluster);
         });
 
