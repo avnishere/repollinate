@@ -1,9 +1,33 @@
 $(document).ready(function() {
-    var map = L.map('map').setView([56.6218, -3.8670], 7);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
-        maxZoom: 18,
-    }).addTo(map);
+
+    var satelliteMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles © Esri'
+    });
+
+    var openTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data: © OpenStreetMap contributors, SRTM | Map style: © OpenTopoMap (CC-BY-SA)'
+    });
+
+    var streetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap'
+    });
+    
+    // Initialize the map on the 'map' div with a given center and zoom
+    var map = L.map('map', {
+        center: [56.6218, -3.8670],
+        zoom: 7,
+        layers: [streetMap] // Default layer
+    });
+
+    // Base layers for switching
+    var baseMaps = {
+        "Street Map": streetMap,
+        "Satellite": satelliteMap,
+        "Terrain": openTopoMap
+    };
+
+    // Add control to the map to switch layers
+    L.control.layers(baseMaps, null, {position: 'bottomright'}).addTo(map);
 
     var customIcon = L.icon({
         iconUrl: 'assets/images/bee.png',
