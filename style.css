@@ -1,0 +1,289 @@
+body, html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Use 100% of the viewport height */
+}
+
+header {
+    background-color: #fff; /* #819585 */
+    color: #f4eded;
+    text-align: center;
+    padding: 5px 0;
+    display: flex;
+    align-items: center; /* Aligns items vertically center */
+    justify-content: start; /* Centers items horizontally */
+}
+
+#map {
+    flex-grow: 1; /* Allows the map to expand and fill the available space */
+    background-color: #f0f0f0;
+    min-height: 100px;
+    /* Adjust padding or margin as needed for spacing */
+}
+
+#header-logo {
+    margin-right: auto; /* Adds some space between the logo and the title */
+    height: 8vh; /* Adjust based on your logo's size */
+    width: auto; /* Maintains aspect ratio */
+    align-self: flex-start; /* Aligns the logo to the left */
+}
+#bees-logo {
+    margin-right: auto; /* Adds some space between the logo and the title */
+    margin-left: 80px; /* Adds some space between the logo and the left edge */
+    height: 8vh; /* Adjust based on your logo's size */
+    width: auto; /* Maintains aspect ratio */
+    align-self: flex-start; /* Aligns the logo to the left */
+}
+
+header .home-link {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.home-link {
+    color: #819585; /* color of the text*/
+    text-decoration: none; /* Optional: removes underline from links */
+    font-size: 17px; /* Adjust size as needed */
+    /* Additional styling here */
+}
+
+.home-link:hover {
+    color: #e7c446;; /* Color changes to yellow on hover */
+}
+
+.searchable-dropdown-container {
+    position: relative; /* Adjusted to keep within the header */
+    margin-left: auto;
+    padding-right: 50px;
+}
+
+/* Target the Select2 container */
+.select2-container {
+    min-width: 200px !important; /* Ensure it doesn't go below 100px */
+    font-size: 12px !important; /* Adjust as needed */
+}
+
+/* Optional: Adjust the width of the dropdown to match the Select2 container */
+.select2-dropdown {
+    width: 200px !important;
+    color: #69636e !important;
+    font-size: 12px !important;
+    border: none !important;
+}
+
+.select2-container .select2-selection--single {
+    border: none; /* Remove border */
+    background-color: #819585; /* Light grey background */
+    border-radius: 4px; /* Rounded corners */
+    height: 32px; /* Adjust height as needed */
+    color: #fff;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__placeholder {
+    color: #f0eef2; /* Adjust placeholder color */
+}
+
+/* Single selection - Selected item font color */
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #fff !important; /* Example: Dark blue */
+}
+
+.select2-results__option--highlighted {
+    background-color: #819585 !important;
+    
+}
+
+#dropdownSearch {
+    margin-bottom: 5px; /* Optional: Adjust as needed for spacing */
+}
+
+#searchableDropdown {
+    display: hidden; /* Initially hide the dropdown */
+    max-height: 200px; /* Adjust based on your needs */
+    overflow-y: auto; /* Enables scroll for long lists */
+}
+
+/* Adjust the .leaflet-popup-content wrapper if needed */
+.leaflet-popup-content {
+    width: auto !important; /* Override Leaflet's default width */
+    height: auto !important; /* Override Leaflet's default height */
+    margin: 0;
+    padding: 0;
+}
+
+/* Ensure the .leaflet-popup-content-wrapper doesn't have padding */
+.leaflet-popup-content-wrapper {
+    padding: 10 !important; /* Override Leaflet's default padding */
+}
+
+.popup-content {
+    display: flex;
+    flex-direction: row;
+    align-items: top;
+    justify-content: center;
+    min-width: 70vw; /* Adjusted for popup width */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden; /* Optional: Hides overflow content */
+}
+
+/* Styles for the slider container */
+.my-slider {
+    width: 400px; /* Adjust this based on your preference */
+    height: 400px; /* Adjust the width as necessary to fit within the popup */
+    margin: auto; /* Center the slider if the popup content is wider */
+}
+
+/* Adjusts the images within the slider */
+.my-slider img {
+    width: 400px; /* Makes the image fill the container */
+    height: 400px; /* Adjusts the height proportionally */
+    object-fit: cover; /* Ensures the image covers the area nicely */
+}
+
+/* Additional styling for the text container */
+.popup-text-container {
+    text-align: left;
+    width: 100%; /* Ensure the text doesn't overflow the slider */
+    margin-top: 20px; /* Space between the slider and the text content */
+    margin-left: 20px; /* Space between the slider and the left edge */
+}
+
+/* Styling for funded and area information */
+.funded-area-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.funded, .area {
+    flex: 1;
+    text-align: center;
+}
+
+/* Description styling for readability */
+.popup-description {
+    margin-top: 10px;
+    text-align: justify;
+}
+
+/* footer stuff */
+footer {
+    background-color: #819585 ; /* Dark background */
+    color: #69636e; /* White text color */
+    padding: 20px 40px; /* Adjusted padding for spacing at the start and end */
+    font-family: Arial, sans-serif; /* Modern font */
+}
+
+.footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px; /* Space between rows */
+    width: 100%; /* Ensure footer row uses the full width */
+}
+
+.social-icons {
+    display: flex; /* Ensure flexbox for proper alignment */
+}
+
+.social-icons a {
+    color: #69636e; /* Icon color */
+    margin-right: 10px; /* Space between icons */
+    font-size: 24px; /* Icon size */
+}
+
+.donate-section {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    gap: 10px; /* Space between button and text */
+}
+
+.donate-button {
+    background-color: #e7c446; /* Bootstrap primary color for example */
+    color: #5c5c5c;
+    padding: 10px 20px;
+    border-radius: 5px; /* Rounded corners */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.donate-button:hover {
+    background-color: #a68d31; /* Darken on hover */
+    text-decoration: none; /* Remove underline on hover */
+    color: #7a7979; /* White text on hover */
+}
+
+footer a {
+    color: #e7c446; /* White text for links */
+    text-decoration: none; /* No underline */
+}
+
+footer a:hover {
+    text-decoration: none; /* Underline on hover */
+    color: #c7a93b; /* Darken on hover */
+
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .footer-row {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0 10px; /* Add padding on smaller screens for spacing */
+    }
+    
+    .social-icons a,
+    footer .footer-row:last-child a {
+        margin-bottom: 10px; /* Space between items when stacked */
+    }
+
+    .donate-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .donate-section span {
+        margin-top: 10px;
+    }
+}
+
+.social-media-icons {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px; /* Icon size as per your design */
+    height: 50px; /* Icon size as per your design */
+    margin-right: 10px; /* Space between icons */
+    background-color: #e7c446; /* Icon background color */
+    color: #333 ; /* Icon color */
+    text-decoration: none; /* Remove underline from icons */
+    border-radius: 10px; /* Rounded corners for icons */
+}
+
+.icon:hover {
+    background-color: #a68d31; /* Darken on hover */
+    text-decoration: none; /* Remove underline on hover */
+}
+.icon:last-child {
+    margin-right: 0; /* No space after the last icon */
+}
+
+
