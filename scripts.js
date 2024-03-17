@@ -32,8 +32,6 @@ $(document).ready(function() {
     var customIcon = L.icon({
         iconUrl: 'assets/images/bee.png',
         iconSize: [38, 38],
-        iconAnchor: [22, 94],
-        popupAnchor: [-3, -76]
     });
 
     var markersCluster = L.markerClusterGroup();
@@ -80,7 +78,7 @@ $(document).ready(function() {
                     permanent: true, // This makes the tooltip always visible
                     direction: 'bottom', // You can specify the direction (top, bottom, left, right)
                     className: 'my-marker-label', // Use this class to style your tooltip if needed
-                    offset: [-3, -58] // You can add an offset to the tooltip position
+                    offset: [0, 20] // You can add an offset to the tooltip position
                 });        
                 marker.id = item.value; // Assign the ID to the marker
                 markersCluster.addLayer(marker);
